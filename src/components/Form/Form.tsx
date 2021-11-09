@@ -223,7 +223,14 @@ const Form = () => {
 
     const getBalanceFromAPI = async () => {
         setIsLoading(true);
-        const result = await getBalance(formData.cpf);
+        const result = await getBalance({
+            name: formData.name,
+            ddd: formData.telephone.split(" ")[0].replace(/[()]/g, ""),
+            telephone: formData.telephone.split(" ")[1].replace("-", ""),
+            birthday: formData.birthday,
+            uf: formData.uf,
+            cpf: formData.cpf,
+        });
         if (!result.error) {
             setBalance(result.result);
             setIsLoading(false);

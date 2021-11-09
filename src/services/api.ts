@@ -23,9 +23,19 @@ type IGetBalanceResult = {
     errorCode?: number,
 }
 
-export const getBalance = async (cpf: string): Promise<IGetBalanceResult> => {
+interface IGetBalancePayload {
+    name: string;
+    ddd: string;
+    telephone: string;
+    birthday: string;
+    uf: string;
+    cpf: string;
+}
+
+export const getBalance = async (payload: IGetBalancePayload): Promise<IGetBalanceResult> => {
     try {
-        const response = await api.get<IGetBalanceResponse>(`/getBalance?idClient=${cpf}`);
+        const response = await api.post<IGetBalanceResponse>(`/getBalance`, payload);
+        
         const {
             data
         } = response
