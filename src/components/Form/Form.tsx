@@ -193,7 +193,7 @@ const clearUndefinedFromObject = (object: any) => {
     return clone;
 }
 
-const START_STEP: keyof IFormData = "cpf";
+const START_STEP: keyof IFormData = "enabledFGTS";
 
 const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
