@@ -72,7 +72,7 @@ const QUESTIONS: IQuestion[] = [
     },
     {
         id: "name",
-        title: "Qual é o seu nome?",
+        title: "Qual é o seu nome completo?",
         type: "text",
         placeholder: "Escreva aqui..."
     },
