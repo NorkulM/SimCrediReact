@@ -27,7 +27,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "build-and-serve": "npm run build && serve -l 5000 -s build",
-    "serve-help": "serve --help"
+    "serve-help": "serve --help",
+    "deploy": "npm run build && npm run copy-to-ec2",
+    "copy-to-ec2": "scp -i \"~/.ssh/api-simcredi.pem\" -r ./build/static/js ubuntu@api.honscript.com:/home/ubuntu/SIMCREDI/current/src/static"
   },
   "eslintConfig": {
     "extends": [
