@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import FormQuestion from "../FormQuestion";
 import StepsTransition from "../StepsTransition";
 import TelephoneMaskedInput from "../TelephoneMaskedInput";
@@ -217,9 +217,9 @@ const Form = () => {
         }));
     }
 
-    React.useEffect(() => {
-        console.log("new data:", formData);
-    }, [formData]);
+    // React.useEffect(() => {
+    //     console.log("new data:", formData);
+    // }, [formData]);
 
     const getBalanceFromAPI = async () => {
         setIsLoading(true);
