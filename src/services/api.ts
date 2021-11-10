@@ -2,8 +2,7 @@ import axios from "axios";
 import { IBalance } from "../utils/types";
 
 const api = axios.create({
-    // baseURL: "https://api.honscript.com",
-    baseURL: "http://localhost:4000",
+    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.honscript.com",
 });
 
 type IGetBalanceResponse = {
@@ -35,7 +34,7 @@ interface IGetBalancePayload {
 export const getBalance = async (payload: IGetBalancePayload): Promise<IGetBalanceResult> => {
     try {
         const response = await api.post<IGetBalanceResponse>(`/getBalance`, payload);
-        
+
         const {
             data
         } = response
