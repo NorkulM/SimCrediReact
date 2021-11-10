@@ -46,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
             fontSize: "18px",
             background: "linear-gradient(95.03deg, #3FDEB8 0%, #45D2DB 100%)",
         }
+    },
+    helperText: {
+        "&.MuiFormHelperText-root.Mui-error": {
+            fontWeight: "600",
+        }
     }
 }));
 
@@ -173,7 +178,7 @@ const FormQuestion = ({
                             noOptionsText="Nenhum estado corresponde à pesquisa."
                         />
                         {(error || helperText) && (
-                            <FormHelperText id={`${id}-helper-text`}>{error || helperText}</FormHelperText>
+                            <FormHelperText className={classes.helperText} sx={{ fontSize: "0.9rem" }} id={`${id}-helper-text`}>{error || helperText}</FormHelperText>
                         )}
                     </FormControl>
                     <Grid sx={{ marginTop: "20px" }} container direction="row" justifyContent="space-between">
@@ -229,7 +234,7 @@ const FormQuestion = ({
                             inputComponent={MaskInput}
                         />
                         {(error || helperText) && (
-                            <FormHelperText sx={{ fontSize: "0.9rem" }} id={`${id}-helper-text`}>{error || helperText}</FormHelperText>
+                            <FormHelperText className={classes.helperText} sx={{ fontSize: "0.9rem" }} id={`${id}-helper-text`}>{error || helperText}</FormHelperText>
                         )}
                     </FormControl>
                     <Grid sx={{ marginTop: "20px" }} container direction="row" justifyContent="space-between">

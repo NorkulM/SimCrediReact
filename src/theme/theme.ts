@@ -21,6 +21,9 @@ const theme = createTheme({
         info: {
             light: "#45D2DB",
             main: "#1299A0",
+        },
+        error: {
+            main: "#c42318",
         }
     }
 });
