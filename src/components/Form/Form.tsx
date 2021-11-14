@@ -2,13 +2,13 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import { getBalance, makeProposal } from "../../services";
 import { clearUndefinedFromObject, INITIAL_FORM_DATA, scrollToEnableFGTSInfo, validateField } from "../../utils";
-import { IBalance, IFormData, IQuestionsWithDirection } from "../../utils/types";
+import { IBalance, IFormData, IQuestionsWithDirection, IFirstPaymentInfo } from "../../utils/types";
 import BalanceTable from "../BalanceTable/BalanceTable";
 import FormQuestion from "../FormQuestion";
 import StepsTransition from "../StepsTransition";
 import QUESTIONS from "./questions";
 
-const START_STEP: keyof IFormData = "enabledFGTS";
+const START_STEP: keyof IFormData = process.env.NODE_ENV === "development" ? "cpf" : "enabledFGTS";
 
 const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +24,7 @@ const Form = () => {
     });
 
     const [balance, setBalance] = useState<IBalance[]>([]);
+    const [firstPaymentInfo, setFirstPaymentInfo] = useState<IFirstPaymentInfo>();
 
     const updateFormData = (id: keyof IFormData) => (value: string) => {
         setFormData(state => ({
@@ -48,6 +49,7 @@ const Form = () => {
         });
         if (!result.error) {
             setBalance(result.result);
+            setFirstPaymentInfo(result.firstPaymentInfo);
             setIsLoading(false);
             return true;
         }
@@ -205,6 +207,7 @@ const Form = () => {
                             previousStep={previousStep}
                             nextStep={nextStep}
                             balance={balance}
+                            firstPaymentInfo={firstPaymentInfo}
                         />
                     )}
                 </StepsTransition>

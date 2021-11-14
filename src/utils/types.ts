@@ -51,3 +51,9 @@ export interface IBalance {
     value: number;
     date: string;
 }
+
+export interface IFirstPaymentInfo {
+    mainValue: number;
+    iof: number;
+    dueDate: string;
+}

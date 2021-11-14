@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IBalance } from "../utils/types";
+import { IBalance, IFirstPaymentInfo } from "../utils/types";
 
 const api = axios.create({
     baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.honscript.com",
@@ -8,6 +8,8 @@ const api = axios.create({
 type IGetBalanceResponse = {
     error: false;
     result: IBalance[];
+    balance: IBalance[];
+    firstPaymentInfo: IFirstPaymentInfo;
 } | {
     error: true;
     errorMessage?: string;
@@ -16,6 +18,8 @@ type IGetBalanceResponse = {
 type IGetBalanceResult = {
     error: false;
     result: IBalance[];
+    balance: IBalance[];
+    firstPaymentInfo: IFirstPaymentInfo;
 } | {
     error: true,
     errorMessage: string,

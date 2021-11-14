@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Button, Grid, Paper, Table, TableBody, TableCell, tableCellClasses, tableClasses, TableContainer, TableFooter, TableHead, TableRow, tableRowClasses, Typography } from "@mui/material";
 import React, { useRef, useEffect } from "react";
 import theme from "../../theme/theme";
-import { IBalance } from "../../utils/types";
+import { IBalance, IFirstPaymentInfo } from "../../utils/types";
 
 const useStyles = makeStyles(() => ({
     outerContainer: {
@@ -97,6 +97,7 @@ interface Props {
     previousStep: () => void;
     nextStep: () => void;
     balance: IBalance[];
+    firstPaymentInfo?: IFirstPaymentInfo;
 }
 
 const BalanceTable = React.forwardRef<HTMLDivElement, Props>(({
@@ -104,6 +105,7 @@ const BalanceTable = React.forwardRef<HTMLDivElement, Props>(({
     previousStep,
     nextStep,
     balance,
+    firstPaymentInfo,
 }, ref) => {
     const isMobile = useMediaQuery("(max-width:520px)");
     const classes = useStyles({
@@ -147,6 +149,22 @@ const BalanceTable = React.forwardRef<HTMLDivElement, Props>(({
                                 <TableCell>Total</TableCell>
                                 <TableCell>{formatValue(balance.reduce((acc, row) => acc + row.value, 0))}</TableCell>
                             </TableRow>
+                            {firstPaymentInfo && (
+                                <>
+                                    <TableRow className={classes.footerTableRow}>
+                                        <TableCell>Valor Liberado</TableCell>
+                                        <TableCell>{formatValue(firstPaymentInfo.mainValue)}</TableCell>
+                                    </TableRow>
+                                    <TableRow className={classes.footerTableRow}>
+                                        <TableCell>IOF</TableCell>
+                                        <TableCell>{formatValue(firstPaymentInfo.iof)}</TableCell>
+                                    </TableRow>
+                                    <TableRow className={classes.footerTableRow}>
+                                        <TableCell>Primeiro Vencimento</TableCell>
+                                        <TableCell>{formatDate(firstPaymentInfo.dueDate)}</TableCell>
+                                    </TableRow>
+                                </>
+                            )}
                         </TableFooter>
                     </Table>
                 </TableContainer>
