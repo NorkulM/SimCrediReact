@@ -51,3 +51,13 @@ export const validateField = (id: keyof IFormData, value: string): { error?: str
             return {}
     }
 }
+
+export const scrollToEnableFGTSInfo = () => {
+    (window as any)?.receiveCustomMsg?.("scrollToTop");
+};
+
+export const clearUndefinedFromObject = (object: any) => {
+    const clone = {...object};
+    Object.keys(clone).forEach(key => clone[key] === undefined && delete clone[key]);
+    return clone;
+};
