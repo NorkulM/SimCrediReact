@@ -8,7 +8,7 @@ import FormQuestion from "../FormQuestion";
 import StepsTransition from "../StepsTransition";
 import QUESTIONS from "./questions";
 
-const START_STEP: keyof IFormData = process.env.NODE_ENV === "development" ? "cpf" : "enabledFGTS";
+const START_STEP: keyof IFormData = process.env.NODE_ENV === "development" ? "agreeWithTerms" : "enabledFGTS";
 
 const Form = () => {
     const [isLoading, setIsLoading] = useState(false);

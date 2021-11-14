@@ -40,6 +40,7 @@ export interface IQuestion {
     options?: IOption[];
     previousButtonMessage?: string;
     nextButtonMessage?: string;
+    blockKeyPressForNextButton?: boolean;
     blockNextButton?: boolean;
 }
 

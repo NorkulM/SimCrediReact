@@ -124,6 +124,7 @@ const QUESTIONS: IQuestion[] = [
         id: "agreeWithTerms",
         type: "yesOrNo",
         title: "Você concorda com os termos de serviço?",
+        blockKeyPressForNextButton: true,
         nextButtonMessage: "Sim e Enviar",
     },
     {
