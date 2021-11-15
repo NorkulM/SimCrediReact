@@ -1,7 +1,8 @@
+import { useMediaQuery } from "@material-ui/core";
 import { Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getBalance, makeProposal } from "../../services";
-import { clearUndefinedFromObject, INITIAL_FORM_DATA, scrollToEnableFGTSInfo, validateField } from "../../utils";
+import { clearUndefinedFromObject, hideContrateTitle, INITIAL_FORM_DATA, scrollToEnableFGTSInfo, showContrateTitle, validateField } from "../../utils";
 import { IBalance, IFormData, IQuestionsWithDirection, IFirstPaymentInfo } from "../../utils/types";
 import BalanceTable from "../BalanceTable/BalanceTable";
 import FormQuestion from "../FormQuestion";
@@ -17,11 +18,22 @@ const Form = () => {
         ...question,
         direction: !index ? "down" : "up",
     })));
+    const isMobile = useMediaQuery("(max-width:520px)");
 
     const [currentStep, setCurrentStep] = useState(() => {
         const index = questions.findIndex(question => question.id === START_STEP);
         return index > -1 ? index : 0;
     });
+
+    useEffect(() => {
+        if (!isMobile) return;
+
+        if (questions[currentStep].id === "table") {
+            hideContrateTitle();
+        } else {
+            showContrateTitle();
+        }
+    }, [currentStep, questions, isMobile]);
 
     const [balance, setBalance] = useState<IBalance[]>([]);
     const [firstPaymentInfo, setFirstPaymentInfo] = useState<IFirstPaymentInfo>();

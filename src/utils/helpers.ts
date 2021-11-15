@@ -56,6 +56,14 @@ export const scrollToEnableFGTSInfo = () => {
     (window as any)?.receiveCustomMsg?.("scrollToTop");
 };
 
+export const hideContrateTitle = () => {
+    (window as any)?.receiveCustomMsg?.("hideTitle");
+};
+
+export const showContrateTitle = () => {
+    (window as any)?.receiveCustomMsg?.("showTitle");
+};
+
 export const clearUndefinedFromObject = (object: any) => {
     const clone = {...object};
     Object.keys(clone).forEach(key => clone[key] === undefined && delete clone[key]);
