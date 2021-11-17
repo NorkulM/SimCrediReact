@@ -68,6 +68,7 @@ const Form = () => {
 
         switch (result.errorCode) {
             case 1: // saque nao habilitado
+            case 4: // banco safra nao autorizado
                 setQuestions(state => state.map(question => ({
                     ...question,
                     error: question.id === "cpf" ? result.errorMessage : undefined,
