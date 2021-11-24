@@ -2,7 +2,7 @@ import axios from "axios";
 import { IBalance, IFirstPaymentInfo } from "../utils/types";
 
 const api = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.honscript.com",
+    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.simcreditodigital.com.br",
 });
 
 type IGetBalanceResponse = {
