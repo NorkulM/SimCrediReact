@@ -147,11 +147,11 @@ const FormQuestion = ({
                     {id === "agreeWithTerms" ? (
                         <Typography fontWeight="600" color="white" variant="h5" component="h3">
                             Você aceita os nossos{' '}
-                            <Link href="https://api.honscript.com/static/terms/termos-e-condicoes.pdf" target="_blank">
+                            <Link href="https://api.simcreditodigital.com.br/static/terms/termos-e-condicoes.pdf" target="_blank">
                                 Termos de Serviço
                             </Link>
                             {' '}e a nossa{' '}
-                            <Link href="https://api.honscript.com/static/terms/politica-de-privacidade.pdf" target="_blank">
+                            <Link href="https://api.simcreditodigital.com.br/static/terms/politica-de-privacidade.pdf" target="_blank">
                                 Política de Privacidade
                             </Link>?
                         </Typography>
