@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@material-ui/core";
+import { Link, useMediaQuery } from "@material-ui/core";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getBalance, makeProposal } from "../../services";
@@ -9,7 +9,7 @@ import FormQuestion from "../FormQuestion";
 import StepsTransition from "../StepsTransition";
 import QUESTIONS from "./questions";
 
-const START_STEP: keyof IFormData = process.env.NODE_ENV === "development" ? "agreeWithTerms" : "enabledFGTS";
+const START_STEP: keyof IFormData = process.env.NODE_ENV === "development" ? "success" : "enabledFGTS";
 
 const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -209,7 +209,13 @@ const Form = () => {
                                         component="h3"
                                         textAlign="center"
                                     >
-                                        Suas informações serão analisadas, em breve entraremos em contato. Muito Obrigado!
+                                        Sua proposta foi digitada!
+                                        <br/>
+                                        Agora você receberá um SMS com o link para fazer a assinatura digital do seu contrato!
+                                        <br/><br/>
+                                        Basta seguir as orientações, e clicar em PERMITIR CÂMERA assim que o link do banco perguntar.
+                                        <br/>
+                                        Em caso de dúvidas, ligue para <Link href="tel:08001237300">08001237300</Link>.
                                     </Typography>
                                 )}
                             </div>
