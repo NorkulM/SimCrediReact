@@ -10,7 +10,7 @@ import UF_LIST from "./uf-list";
 const QUESTIONS: IQuestion[] = [
     {
         id: "enabledFGTS",
-        title: "Você solicitou o saque aniversário e autorizou o banco Safra no app do FGTS?",
+        title: "Você solicitou o saque aniversário e autorizou o Banco Pan no app do FGTS?",
         type: "yesOrNo",
         previousStep: scrollToEnableFGTSInfo,
         previousButtonMessage: "Ainda Não",
@@ -92,10 +92,22 @@ const QUESTIONS: IQuestion[] = [
         title: "Vamos prosseguir para os dados bancários! Qual é o tipo da sua conta?",
         options: [{
             title: "Conta Corrente",
-            value: "Conta Corrente",
+            value: "01",
         }, {
             title: "Conta Poupança",
-            value: "Poupança"
+            value: "02"
+        }, {
+            title: "Conta Salário",
+            value: "03"
+        }, {
+            title: "Conta Corrente - Conjunta",
+            value: "11",
+        }, {
+            title: "Conta Poupança - Conjunta",
+            value: "12",
+        }, {
+            title: "Conta Investimento",
+            value: "13",
         }],
     },
     {
