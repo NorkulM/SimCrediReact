@@ -1,7 +1,7 @@
 import { Link, useMediaQuery } from "@material-ui/core";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getBalance, makeProposal } from "../../services";
+import { getBalance, getFGTSResult, makeProposal } from "../../services";
 import { clearUndefinedFromObject, hideContrateTitle, INITIAL_FORM_DATA, scrollToEnableFGTSInfo, showContrateTitle, validateField } from "../../utils";
 import { IBalance, IFormData, IQuestionsWithDirection, IFirstPaymentInfo } from "../../utils/types";
 import BalanceTable from "../BalanceTable/BalanceTable";
@@ -68,33 +68,33 @@ const Form = () => {
             }, timeout);
         }
 
-        switch (result.errorCode) {
-            case 1: // saque nao habilitado
-            case 4: // banco safra nao autorizado
-                setQuestions(state => state.map(question => ({
-                    ...question,
-                    error: question.id === "cpf" ? result.errorMessage : undefined,
-                    nextButtonMessage: question.id === "cpf" ? "Habilitar Agora" : undefined,
-                    nextStep: question.id === "cpf" ? () => {
-                        scrollToEnableFGTSInfo();
-                        setQuestions(state => state.map(question => ({
-                            ...question,
-                            nextStep: question.id === "cpf" ? undefined : question.nextStep,
-                            nextButtonMessage: question.id === "cpf" ? "Consultar Saldo" : question.nextButtonMessage,
-                        })).map(clearUndefinedFromObject));
-                    } : undefined,
-                })));
-                break;
-            case 2: // sem saldo
-            default:
-                setQuestions(state => state.map(question => ({
-                    ...question,
-                    error: question.id === "cpf" ? result.errorMessage : undefined,
-                    blockNextButton: question.id === "cpf",
-                })));
-        }
-        setIsLoading(false);
-        return false;
+        // switch (result.errorCode) {
+        //     case 1: // saque nao habilitado
+        //     case 4: // banco safra nao autorizado
+        //         setQuestions(state => state.map(question => ({
+        //             ...question,
+        //             error: question.id === "cpf" ? result.errorMessage : undefined,
+        //             nextButtonMessage: question.id === "cpf" ? "Habilitar Agora" : undefined,
+        //             nextStep: question.id === "cpf" ? () => {
+        //                 scrollToEnableFGTSInfo();
+        //                 setQuestions(state => state.map(question => ({
+        //                     ...question,
+        //                     nextStep: question.id === "cpf" ? undefined : question.nextStep,
+        //                     nextButtonMessage: question.id === "cpf" ? "Consultar Saldo" : question.nextButtonMessage,
+        //                 })).map(clearUndefinedFromObject));
+        //             } : undefined,
+        //         })));
+        //         break;
+        //     case 2: // sem saldo
+        //     default:
+        //         setQuestions(state => state.map(question => ({
+        //             ...question,
+        //             error: question.id === "cpf" ? result.errorMessage : undefined,
+        //             blockNextButton: question.id === "cpf",
+        //         })));
+        // }
+        // setIsLoading(false);
+        // return false;
     }
 
     const nextStep = async () => {

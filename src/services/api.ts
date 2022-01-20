@@ -1,4 +1,5 @@
 import axios from "axios";
+import ts from "typescript";
 import { IBalance, IFirstPaymentInfo } from "../utils/types";
 
 const api = axios.create({
@@ -103,7 +104,7 @@ export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
         if ("data" in data) {
             return {
                 error: false,
-                data: data.data,
+                data: data, //data.data
                 completed: true,
             }
         }
@@ -112,12 +113,16 @@ export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
             error: true,
             completed: true,
             errorMessage: data.error,
+
         }
-    } catch (error) {
-        return {
-            error
-        }
+    } finally {
+        //So pra sair o erro
     }
+    // } catch (error) {
+    //     // return {
+    //     //     // error
+    //     // }
+    // }
 }
 
 interface MakeProposalPayload {
