@@ -6,24 +6,18 @@ const api = axios.create({
 });
 
 type IGetBalanceResponse = {
-    error: false;
-    result: IBalance[];
-    balance: IBalance[];
-    firstPaymentInfo: IFirstPaymentInfo;
+    id: string;
 } | {
     error: true;
-    errorMessage?: string;
+    errorMessage: string;
 }
 
 type IGetBalanceResult = {
     error: false;
-    result: IBalance[];
-    balance: IBalance[];
-    firstPaymentInfo: IFirstPaymentInfo;
+    id: string;
 } | {
-    error: true,
-    errorMessage: string,
-    errorCode?: number,
+    error: true;
+    errorMessage: string;
 }
 
 interface IGetBalancePayload {
@@ -40,43 +34,89 @@ export const getBalance = async (payload: IGetBalancePayload): Promise<IGetBalan
         const response = await api.post<IGetBalanceResponse>(`/getBalance`, payload);
 
         const {
-            data
-        } = response
+            data,
+            status,
+        } = response;
 
-        if (!data.error) {
-            return data;
-        } else {
+        if ("error" in data) {
             return {
                 ...data,
-                errorMessage: data.errorMessage || "Erro ao buscar saldo FGTS. Tente novamente mais tarde.",
-            };
+            }
+        } else {
+            return {
+                id: data.id,
+                error: false,
+            }
         }
     } catch (error: any) {
         if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
             console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
             return {
                 error: true,
                 errorMessage: error.response?.data?.errorMessage || "Erro ao buscar saldo FGTS. Tente novamente mais tarde.",
-                errorCode: error.response?.data?.errorCode,
             };
-        } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.error("No response received:", error.request);
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error('Error settling up the request:', error.message);
         }
-        console.log("Request config:", error.config);
         return {
             error: true,
             errorMessage: "Erro desconhecido."
         };
+    }
+}
+
+interface IFGTSResult {
+    firstDueDate: string;
+    // outras info tem q botar aq q eu n sou obrigado
+}
+
+type IFGTSResultResult = {
+    error: false;
+    completed: true;
+    data: IFGTSResult;
+} | {
+    error: false;
+    completed: false;
+} | {
+    error: true;
+    completed: true;
+    errorMessage: string;
+}
+
+type IFGTSResultResponse = {
+    success: false;
+    error: string;
+} | {
+    success: true;
+    data: IFGTSResult;
+} | {}
+
+export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
+    try {
+        const { data } = await api.get<IFGTSResultResponse>(`/getFgtsResult?id=${id}`);
+
+        if (!("error" in data)) {
+            return {
+                error: false,
+                completed: false,
+            }
+        }
+
+        if ("data" in data) {
+            return {
+                error: false,
+                data: data.data,
+                completed: true,
+            }
+        }
+
+        return {
+            error: true,
+            completed: true,
+            errorMessage: data.error,
+        }
+    } catch (error) {
+        return {
+            error
+        }
     }
 }
 

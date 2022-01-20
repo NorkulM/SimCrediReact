@@ -45,13 +45,9 @@ const Form = () => {
         }));
     }
 
-    // React.useEffect(() => {
-    //     console.log("new data:", formData);
-    // }, [formData]);
-
     const getBalanceFromAPI = async () => {
         setIsLoading(true);
-        const result = await getBalance({
+        const data = await getBalance({
             name: formData.name,
             ddd: formData.telephone.split(" ")[0].replace(/[()]/g, ""),
             telephone: formData.telephone.split(" ")[1].replace("-", ""),
@@ -59,11 +55,17 @@ const Form = () => {
             uf: formData.uf,
             cpf: formData.cpf,
         });
-        if (!result.error) {
-            setBalance(result.result);
-            setFirstPaymentInfo(result.firstPaymentInfo);
+
+        if (data.error) {
+            // tratar erro
             setIsLoading(false);
             return true;
+        }
+
+        const setFGTSTimeout = (id: string, timeout: number) => {
+            setTimeout(async () => {
+                const fgtsResult = await getFGTSResult(id);
+            }, timeout);
         }
 
         switch (result.errorCode) {

@@ -132,8 +132,8 @@ const BalanceTable = React.forwardRef<HTMLDivElement, Props>(({
                     <Table className={classes.table} aria-label="tabela de saldo fgts">
                         <TableHead>
                             <TableRow className={classes.headerTableRow}>
-                                <TableCell>VENCIMENTO</TableCell>
-                                <TableCell>SAQUE ANIVERSÁRIO DISPONÍVEL</TableCell>
+                                <TableCell>Dados da Operação</TableCell>
+                                <TableCell>Valor</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
