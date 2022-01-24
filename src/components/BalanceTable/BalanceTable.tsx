@@ -135,7 +135,7 @@ const BalanceTable = React.forwardRef<HTMLDivElement, Props>(({
                                 <TableCell>Dados da Operação</TableCell>
                                 <TableCell>Valor</TableCell>
                             </TableRow>
-                        </TableHead>
+                        </TableHead>   
                         <TableBody>
                             {balance.map((row, index) => (
                                 <TableRow key={index} className={classes.bodyTableRow}>

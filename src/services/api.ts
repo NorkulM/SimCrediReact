@@ -3,7 +3,7 @@ import ts from "typescript";
 import { IBalance, IFirstPaymentInfo } from "../utils/types";
 
 const api = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.simcreditodigital.com.br",
+    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api2.simcreditodigital.com.br",
 });
 
 type IGetBalanceResponse = {
@@ -66,6 +66,11 @@ export const getBalance = async (payload: IGetBalancePayload): Promise<IGetBalan
 
 interface IFGTSResult {
     firstDueDate: string;
+    firstPayRoll: string;
+    financedValue: string;
+    IOF: string;
+    JrTax: string;
+    CETTax: string
     // outras info tem q botar aq q eu n sou obrigado
 }
 
@@ -88,6 +93,7 @@ type IFGTSResultResponse = {
 } | {
     success: true;
     data: IFGTSResult;
+    error: string;
 } | {}
 
 export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
@@ -104,7 +110,7 @@ export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
         if ("data" in data) {
             return {
                 error: false,
-                data: data, //data.data
+                data: data.data, //aqui tbm
                 completed: true,
             }
         }
@@ -115,14 +121,13 @@ export const getFGTSResult = async (id: string): Promise<IFGTSResultResult> => {
             errorMessage: data.error,
 
         }
-    } finally {
-        //So pra sair o erro
+    } catch (error: any) {
+        return {
+            error: true,
+            completed: true,
+            errorMessage: error?.response?.data?.error || "Ocorreu um erro ao buscar o seu Saldo.",
+        }
     }
-    // } catch (error) {
-    //     // return {
-    //     //     // error
-    //     // }
-    // }
 }
 
 interface MakeProposalPayload {

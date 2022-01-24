@@ -217,7 +217,7 @@ const Form = () => {
                                         <br/><br/>
                                         Basta seguir as orientações, e clicar em PERMITIR CÂMERA assim que o link do banco perguntar.
                                         <br/>
-                                        Em caso de dúvidas, ligue para <Link href="tel:08001237300">08001237300</Link>.
+                                        Em caso de dúvidas, ligue para <Link href="tel:08001234430">08001234430</Link>.
                                     </Typography>
                                 )}
                             </div>
